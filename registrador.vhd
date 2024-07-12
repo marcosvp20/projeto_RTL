@@ -3,7 +3,7 @@ use ieee.std_logic_1164.all;
 
 entity registrador is
     generic (
-        N : integer := 2  -- Número de bits (2 a 5)
+        N : integer := 2
     );
     port (
         clk : in std_logic;
@@ -21,9 +21,9 @@ begin
     begin
         if rising_edge(clk) then
             if clear = '1' then
-                register <= (others => '0');  -- Limpa o registrador
+                register <= (others => '0');
             elsif load = '1' then
-                register <= data_in;  -- Carrega o valor de entrada
+                register <= data_in;
             end if;
         end if;
     end process;

@@ -3,7 +3,7 @@ use ieee.std_logic_1164.all;
 
 entity comparador is
     generic (
-        N : integer := 2  -- Número de bits (2 a 5)
+        N : integer := 2
     );
     port (
         A : in std_logic_vector(N-1 downto 0);

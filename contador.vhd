@@ -14,10 +14,23 @@ entity contador is
 end contador;
 
 architecture arch_cont of contador is
+    component registrador is
+        generic (
+            N : integer := 2
+        );
+        port (
+            clk : in std_logic;
+            clear : in std_logic;
+            load : in std_logic;
+            data_in : in std_logic_vector(N-1 downto 0);
+            data_out : out std_logic_vector(N-1 downto 0)
+        );
+    end component;
+
     signal reg_data : std_logic_vector(N-1 downto 0);
     signal next_count : std_logic_vector(N-1 downto 0);
 begin
-    u_reg: entity work.registrador
+    u_reg: registrador
         generic map (N => N)
         port map (
             clk => clk,
