@@ -1,5 +1,6 @@
 library ieee;
 use ieee.std_logic_1164.all;
+use ieee.numeric_std.all; 
 
 entity datapath is
     port(
@@ -12,7 +13,7 @@ entity datapath is
 
         Result_clr: in std_logic;
         Result_ld : in std_logic;
-        Result : out std_logic_vector(N-1 downto 0)
+        Result : out std_logic_vector(N-1 downto 0);
 
         B : in std_logic_vector(N-1 downto 0);
         B_clr : in std_logic;
@@ -31,6 +32,7 @@ architecture arch of datapath is
     signal B_out : std_logic_vector(N-1 downto 0);
     signal A_out : std_logic_vector(N-1 downto 0);
     signal parcial_result : std_logic_vector(N-1 downto 0);
+    signal result_out : std_logic_vector(N-1 downto 0);
 
     component somador is
         generic (
@@ -63,7 +65,7 @@ architecture arch of datapath is
             clear : in std_logic;
             load : in std_logic;
             data_in : in std_logic_vector(N-1 downto 0);
-            data_out : out std_logic_vector(N-1 downto 0)
+            data_out : out std_logic_vector(N-1 downto 0);
         );
     end component;
 
@@ -77,7 +79,7 @@ architecture arch of datapath is
             load : in std_logic;
             shift_left : in std_logic;
             data_in : in std_logic_vector(N-1 downto 0);
-            data_out : out std_logic_vector(N-1 downto 0)
+            data_out : out std_logic_vector(N-1 downto 0);
         );
     end component;
 
@@ -111,7 +113,7 @@ architecture arch of datapath is
             load => B_ld
             data_in => B
             data_out => B_out
-        )
+        );
 
         A_regsh : regishifter
         generic map (N => N)
@@ -122,7 +124,7 @@ architecture arch of datapath is
             shift_left => A_sh_l
             data_in => A
             data_out => A_out
-        )
+        );
 
         Result : registrador
         generic map (N => N)
@@ -131,16 +133,16 @@ architecture arch of datapath is
             clear => Result_clr
             load => Result_ld
             data_in => parcial_result
-            data_out => result
-        )
+            data_out => result_out
+        );
 
         Sum : somador
         generic map (N => N)
         port map(
             A => A_out
-            B => result
+            B => result_out
             SUM => parcial_result
-        )
+        );
 
         I_eq_N : comparador
         generic map (N => N)
@@ -148,7 +150,7 @@ architecture arch of datapath is
             X => I
             Y => N
             X_lt_Y => I_lt_N
-        )
+        );
 
         B_eq_1 <= B_out(N-1);
 
