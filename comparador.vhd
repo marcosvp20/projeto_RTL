@@ -1,9 +1,7 @@
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-use IEEE.STD_LOGIC_ARITH.ALL;
-use IEEE.STD_LOGIC_UNSIGNED.ALL;
+library ieee;
+use ieee.std_logic_1164.all;
 
-entity Comparador is
+entity comparador is
     generic (
         N : integer := 2  -- Número de bits (2 a 5)
     );
@@ -13,9 +11,9 @@ entity Comparador is
 
         A_less_B : out std_logic
     );
-end Comparador;
+end comparador;
 
-architecture Behavioral of Comparador is
+architecture arch_comp of comparador is
 begin
     process (A, B)
     begin
@@ -25,4 +23,4 @@ begin
             A_less_B <= '0';
         end if;
     end process;
-end Behavioral;
+end arch_comp;

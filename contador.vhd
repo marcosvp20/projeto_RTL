@@ -1,9 +1,7 @@
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-use IEEE.STD_LOGIC_ARITH.ALL;
-use IEEE.STD_LOGIC_UNSIGNED.ALL;
+library ieee;
+use ieee.std_logic_1164.all;
 
-entity Contador is
+entity contador is
     generic (
         N : integer := 2  -- Número de bits (2 a 5)
     );
@@ -13,9 +11,9 @@ entity Contador is
         count : in std_logic;
         count_out : out std_logic_vector(N-1 downto 0)
     );
-end Contador;
+end contador;
 
-architecture ar of Contador is
+architecture arch_cont of contador is
     signal reg_data : std_logic_vector(N-1 downto 0);
     signal next_count : std_logic_vector(N-1 downto 0);
 begin
@@ -41,4 +39,4 @@ begin
     end process;
 
     count_out <= reg_data;
-end ar;
+end arch_cont;

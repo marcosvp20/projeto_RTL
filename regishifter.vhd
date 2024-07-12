@@ -1,5 +1,5 @@
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
+library ieee;
+use ieee.std_logic_1164.all;
 
 entity regishifter is
     generic (
@@ -15,7 +15,7 @@ entity regishifter is
     );
 end regishifter;
 
-architecture architecture of regishifter is
+architecture arch_regish of regishifter is
     signal reg_data : std_logic_vector(N-1 downto 0);
     signal temp_data : std_logic_vector(N-1 downto 0);
 begin
@@ -41,4 +41,4 @@ begin
     end process;
 
     data_out <= reg_data;
-end architecture;
+end arch_regish;

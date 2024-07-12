@@ -1,5 +1,5 @@
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
+library ieee;
+use ieee.std_logic_1164.all;
 
 entity registrador is
     generic (
@@ -14,7 +14,7 @@ entity registrador is
     );
 end registrador;
 
-architecture architecture of registrador is
+architecture arch_regis of registrador is
     signal register : std_logic_vector(N-1 downto 0);
 begin
     process (clk)
@@ -29,4 +29,4 @@ begin
     end process;
     
     data_out <= register;
-end architecture;
+end arch_regis;
