@@ -1,10 +1,11 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
 
 entity tb_somador is
 end tb_somador;
 
-architecture architecture of tb_somador is
+architecture arch of tb_somador is
     constant N : integer := 2;
     signal A, B : std_logic_vector(N-1 downto 0);
     signal SUM : std_logic_vector(N downto 0);
@@ -21,13 +22,15 @@ architecture architecture of tb_somador is
     end component;
 
 begin
-    UUT: somador generic map(N => N) port map(
-        A => A,
-        B => B,
-        SUM => SUM
-    );
+    UUT: somador
+        generic map (N => N)
+        port map (
+            A => A,
+            B => B,
+            SUM => SUM
+        );
 
-    -- Stimulus process
+    -- Processo de estímulo
     stim_proc: process
     begin
         -- teste 1
