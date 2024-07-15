@@ -16,6 +16,6 @@ architecture arch_som of somador is
 begin
     process (A, B)
     begin
-        SUM <= ('0' & A) + ('0' & B);
+        SUM <= std_logic_vector(unsigned('0' & A) + unsigned('0' & B));
     end process;
 end arch_som;

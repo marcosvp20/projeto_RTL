@@ -49,7 +49,7 @@ begin
         if rising_edge(clk) then
             if shift_left = '1' then
                 temp_data <= reg_data(N-2 downto 0) & '0';  -- Realiza o shift left
-            else
+            elsif load = '1' then
                 temp_data <= data_in;
             end if;
         end if;
