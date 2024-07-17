@@ -3,8 +3,11 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all; 
 
 entity datapath is
+    generic (
+        N : integer := 2
+    );
+    
     port(
-        N : in integer;
         clk : in std_logic;
 
         I_clr : in std_logic;
@@ -33,6 +36,7 @@ architecture arch of datapath is
     signal A_out : std_logic_vector(N-1 downto 0);
     signal parcial_result : std_logic_vector(N-1 downto 0);
     signal result_out : std_logic_vector(N-1 downto 0);
+    signal N_vetor : std_logic_vector(N-1 downto 0) := std_logic_vector(to_unsigned(N, N));
 
     component somador is
         generic (
@@ -99,56 +103,56 @@ architecture arch of datapath is
         I_cnt: contador
         generic map (N => N)
         port map(
-            clk => clk;
-            clear => I_clr;
-            count => I_cnt;
+            clk => clk,
+            clear => I_clr,
+            count => I_cnt,
             count_out => i
         );
         
         B_reg : registrador
         generic map (N => N)
         port map(
-            clk => clk
-            clear => B_clr
-            load => B_ld
-            data_in => B
+            clk => clk,
+            clear => B_clr,
+            load => B_ld,
+            data_in => B,
             data_out => B_out
         );
 
         A_regsh : regishifter
         generic map (N => N)
         port map(
-            clk => clk
-            clear => A_clr
-            load => A_ld
-            shift_left => A_sh_l
-            data_in => A
-            data_out => A_out
+            clk => clk,
+            clear => A_clr,
+            load => A_ld,
+            shift_left => A_sh_l,
+            data_in => A,
+            data_out => A_out,
         );
 
         Result : registrador
         generic map (N => N)
         port map(
-            clk => clk
-            clear => Result_clr
-            load => Result_ld
-            data_in => parcial_result
+            clk => clk,
+            clear => Result_clr,
+            load => Result_ld,
+            data_in => parcial_result,
             data_out => result_out
         );
 
         Sum : somador
         generic map (N => N)
         port map(
-            A => A_out
-            B => result_out
+            A => A_out,
+            B => result_out,
             SUM => parcial_result
         );
 
         I_eq_N : comparador
         generic map (N => N)
         port map(
-            X => I
-            Y => N
+            X => I,
+            Y => N_vetor,
             X_lt_Y => I_lt_N
         );
 

@@ -21,11 +21,14 @@ architecture arch of controlador is
     -- Definição dos estados usando um tipo enumerado
     type state_type is (I, S1, S2, S3, S4, S5, S6);
     signal state, next_state : state_type;
-    signal i_clear, R_clear, i_count, i_lt_N, B_eq_1, R_ld, A_ld, B_ld, A_sh_l : std_logic;
+    signal i_clear, R_clear, i_count, i_lt_N, B_eq_1, R_ld, A_ld, B_ld, A_sh_l, A_clr, B_clr: std_logic;
 
     component datapath is
+        generic (
+            N : integer := 2
+        );
+
         port(
-            N : in integer;
             clk : in std_logic;
 
             I_clr : in std_logic;
@@ -51,8 +54,10 @@ architecture arch of controlador is
 begin
 
     datapath_inst : datapath
+    generic map(
+        N => N
+    )
     port map(
-        N => N,
         clk => clock,
         I_clr => i_clear,
         I_cnt => i_count,
@@ -81,6 +86,17 @@ begin
 
     comb_proc : process(state, start, i_lt_N, B_eq_1)
     begin
+        i_clear <= '0';
+        R_clear <= '0';
+        i_count <= '0';
+        R_ld <= '0';
+        A_ld <= '0';
+        B_ld <= '0';
+        A_sh_l <= '0';
+        A_clr <= '0';
+        B_clr <= '0';
+        done <= '0';
+
         case state is
             when I =>
                 i_clear <= '1';

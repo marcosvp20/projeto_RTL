@@ -63,10 +63,10 @@ architecture arch of top_level is
         );
 
     clkdiv : process (MAX10_CLK1_50) is
-        variable count : integer range 0 to 50000000;
+        variable count : integer range 0 to 29999999;
     begin
         if (rising_edge (MAX10_CLK1_50)) then
-            if (count = 50000000) then
+            if (count = 29999999) then
                 CLK <= not CLK;
                 count := 0;
             else
@@ -85,6 +85,9 @@ architecture arch of top_level is
         HEX0 <= decode_digit(digit1);
         HEX1 <= decode_digit(digit2);
         HEX2 <= decode_digit(digit3);
+        HEX3 <= "1111111";
+        HEX4 <= "1111111";
+        HEX5 <= "1111111";
     end process;
 
     function decode_digit(digit : std_logic_vector(3 downto 0)) return std_logic_vector is
