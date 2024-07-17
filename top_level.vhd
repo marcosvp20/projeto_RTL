@@ -47,6 +47,8 @@ architecture arch of top_level is
         LEDR(8) <= Done;
         A <= SW (4 downto 0);
         B <= SW (4 downto 0);
+        Reset <= KEY(0);
+        Start <= KEY(1);
 
         controlador_inst : controlador
         generic map(
