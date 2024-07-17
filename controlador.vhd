@@ -3,29 +3,17 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity controlador is
-    -- Fazer logica do N
-    -- generic (
-    --     N : integer range 2 to 5 := 3  -- Largura do registrador de estado (2 a 5 bits)
-    -- );
+    generic (
+        N : integer range 2 to 5 := 3  -- Largura do registrador de estado (2 a 5 bits)
+    );
     port(
         clock  : in std_logic;
         reset  : in std_logic;
         start  : in std_logic;
-        i_lt_N : in std_logic;
-        B_eq_1 : in std_logic;
-        A      : in std_logic_vector (3 downto 0);
-        B      : in std_logic_vector (3 downto 0);
+        A     : in std_logic_vector(N-1 downto 0);
+        B     : in std_logic_vector(N-1 downto 0);
         done   : out std_logic;
-        i_clear: out std_logic;
-        R_clear: out std_logic;
-        A_ld   : out std_logic;
-        A_clr  : out std_logic;
-        A_sh_l : out std_logic;
-        B_ld   : out std_logic;
-        B_clr  : out std_logic;
-        R_ld   : out std_logic;
-        i_count: out std_logic;
-        Result : out std_logic_vector (4 downto 0)
+        Result : out std_logic_vector (2*N-1 downto 0)
     );
 end controlador;
 
@@ -33,6 +21,7 @@ architecture arch of controlador is
     -- Definição dos estados usando um tipo enumerado
     type state_type is (I, S1, S2, S3, S4, S5, S6);
     signal state, next_state : state_type;
+    signal i_clear, R_clear, i_count, i_lt_N, B_eq_1, R_ld, A_ld, B_ld, A_sh_l : std_logic;
 
     component datapath is
         port(
