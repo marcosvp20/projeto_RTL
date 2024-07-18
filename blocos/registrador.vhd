@@ -15,18 +15,18 @@ entity registrador is
 end registrador;
 
 architecture arch_regis of registrador is
-    signal register : std_logic_vector(N-1 downto 0);
+    signal regis : std_logic_vector(N-1 downto 0);
 begin
-    process (clk)
+    process (clk, clear)
     begin
         if rising_edge(clk) then
             if clear = '1' then
-                register <= (others => '0');
+                regis <= (others => '0');
             elsif load = '1' then
-                register <= data_in;
+                regis <= data_in;
             end if;
         end if;
     end process;
     
-    data_out <= register;
+    data_out <= regis;
 end arch_regis;
