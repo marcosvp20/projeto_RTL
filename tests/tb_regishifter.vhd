@@ -1,3 +1,7 @@
+-- Marcos Vinicius Pinheiro Azevedo
+-- Henrique Carneiro Cardoso
+-- Thiago Wriel Soares Carvalho
+
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
@@ -6,7 +10,7 @@ entity tb_regishifter is
 end tb_regishifter;
 
 architecture behavior of tb_regishifter is
-    component regishifter
+    component registrador
         generic (
             N : integer := 2
         );
@@ -25,12 +29,12 @@ architecture behavior of tb_regishifter is
     signal load_tb : std_logic := '0';
     signal shift_left_tb : std_logic := '0';
     signal data_in_tb : std_logic_vector(1 downto 0) := (others => '0');
-    signal data_out_tb : std_logic_vector(1 downto 0);
+    signal data_out_tb : std_logic_vector(1 downto 0) := (others => '0');
 
     constant clk_period : time := 10 ns;
 
 begin
-    uut: regishifter
+    uut: registrador
         generic map (
             N => 2
         )

@@ -1,7 +1,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
-entity regishifter is
+entity registrador is
     generic (
         N : integer := 2
     );
@@ -13,48 +13,23 @@ entity regishifter is
         data_in : in std_logic_vector(N-1 downto 0);
         data_out : out std_logic_vector(N-1 downto 0)
     );
-end regishifter;
+end registrador;
 
-architecture arch_regish of regishifter is
-    
-    component registrador is
-        generic (
-            N : integer := 2
-        );
-        port (
-            clk : in std_logic;
-            clear : in std_logic;
-            load : in std_logic;
-            data_in : in std_logic_vector(N-1 downto 0);
-            data_out : out std_logic_vector(N-1 downto 0)
-        );
-    end component;
-
-    signal reg_data : std_logic_vector(N-1 downto 0);
-    signal temp_data : std_logic_vector(N-1 downto 0);
-
+architecture arch_regis of registrador is
+    signal regis : std_logic_vector(N-1 downto 0);
 begin
-    u_reg: registrador
-        generic map (N => N)
-        port map (
-            clk => clk,
-            clear => clear,
-            load => load,
-            data_in => temp_data,
-            data_out => reg_data
-        );
-
-    process (clk)
+    process (clk, clear)
     begin
-        if rising_edge(clk) then
-            if shift_left = '1' then
-                temp_data <= data_out(N-2 downto 0) & '0';  -- Realiza o shift left
-            elsif load = '1' then
-                temp_data <= data_in;
+        if clear = '1' then
+            regis <= (others => '0'); 
+        elsif rising_edge(clk) then
+            if load = '1' then
+                regis <= data_in;
+            elsif shift_left = '1' then
+                regis <= data_out(N-2 downto 0) & '0';  -- Realiza o shift left
             end if;
         end if;
     end process;
-
-    data_out <= temp_data;
-end arch_regish;
-                
+    
+    data_out <= regis;
+end arch_regis;
