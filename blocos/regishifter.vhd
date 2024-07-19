@@ -1,7 +1,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
-entity registrador is
+entity regishifter is
     generic (
         N : integer := 2
     );
@@ -13,9 +13,9 @@ entity registrador is
         data_in : in std_logic_vector(N-1 downto 0);
         data_out : out std_logic_vector(N-1 downto 0)
     );
-end registrador;
+end regishifter;
 
-architecture arch_regis of registrador is
+architecture arch_regis of regishifter is
     signal regis : std_logic_vector(N-1 downto 0);
 begin
     process (clk, clear)

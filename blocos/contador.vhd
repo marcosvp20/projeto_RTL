@@ -1,5 +1,6 @@
 library ieee;
 use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
 entity contador is
     generic (
@@ -44,7 +45,7 @@ begin
     begin
         if rising_edge(clk) then
             if count = '1' then
-                next_count <= reg_data + 1;  -- Incrementa o contador
+                next_count <= std_logic_vector(unsigned(reg_data) + 1);  -- Incrementa o contador
             else
                 next_count <= reg_data;  -- Mantém o valor atual
             end if;
