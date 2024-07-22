@@ -28,14 +28,14 @@ architecture arch of tb_contador is
     begin 
         UUT: contador
             generic map (
-                N => N
+                N => 2
             )
             port map(
                 clk => clk_tb,
                 clear => clear_tb,
                 count => count_tb,
                 count_out => count_out_tb
-            )
+            );
 
 
         clk_process: process
@@ -50,32 +50,68 @@ architecture arch of tb_contador is
         stim_proc: process
         begin
             -- teste 1
-            count_tb <= '1'; 
+            clear_tb <= '1';
             wait for clk_period * 2;
+            clear_tb <= '0';
+            wait for clk_period * 2;
+            count_tb <= '1'; 
+            wait for clk_period;
+            count_tb <= '0';
+            wait for clk_period;
             assert (count_out_tb = "01") report "teste de 1 count falhou" severity error;
 
             -- teste 2
-            count_tb <= '1';
+            clear_tb <= '1';
+            wait for clk_period * 2;
+            clear_tb <= '0';
             wait for clk_period * 2;
             count_tb <= '1';
-            wait for clk_period * 2;
+            wait for clk_period;
+            count_tb <= '0';
+            wait for clk_period;
+            count_tb <= '1';
+            wait for clk_period;
+            count_tb <= '0';
+            wait for clk_period;
             assert (count_out_tb = "10") report "teste de 2 counts falhou" severity error;
 
             -- teste 3
-            count_tb <= '1';
+            clear_tb <= '1';
+            wait for clk_period * 2;
+            clear_tb <= '0';
             wait for clk_period * 2;
             count_tb <= '1';
-            wait for clk_period * 2;
+            wait for clk_period;
+            count_tb <= '0';
+            wait for clk_period;
             count_tb <= '1';
-            wait for clk_period * 2;
+            wait for clk_period;
+            count_tb <= '0';
+            wait for clk_period;
+            count_tb <= '1';
+            wait for clk_period;
+            count_tb <= '0';
+            wait for clk_period;
             assert (count_out_tb = "11") report "teste de 3 counts falhou" severity error;
             
             -- teste 4
-            count_tb <= '1';
+            clear_tb <= '1';
+            wait for clk_period * 2;
+            clear_tb <= '0';
             wait for clk_period * 2;
             count_tb <= '1';
+            wait for clk_period;
+            count_tb <= '0';
+            wait for clk_period;
+            count_tb <= '1';
+            wait for clk_period;
+            count_tb <= '0';
+            wait for clk_period;
+            clear_tb <= '1';
             wait for clk_period * 2;
             clear_tb <= '1';
+            wait for clk_period * 2;
+            clear_tb <= '0';
             wait for clk_period * 2;
             assert (count_out_tb = "00") report "teste de clear falhou" severity error;
 
@@ -87,13 +123,19 @@ architecture arch of tb_contador is
             clear_tb <= '1';
             wait for clk_period * 2;
             count_tb <= '1';
-            wait for clk_period * 2;
-            clear_tb <= '1';
+            wait for clk_period;
+            count_tb <= '0';
+            wait for clk_period;
+            clear_tb <= '0';
             wait for clk_period * 2;
             count_tb <= '1';
-            wait for clk_period * 2;
+            wait for clk_period;
+            count_tb <= '0';
+            wait for clk_period;
             count_tb <= '1';
-            wait for clk_period * 2;
+            wait for clk_period;
+            count_tb <= '0';
+            wait for clk_period;
             assert (count_out_tb = "10") report "teste 6 falhou" severity error;
 
             wait for clk_period * 10;
