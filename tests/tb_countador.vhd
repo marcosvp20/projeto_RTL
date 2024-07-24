@@ -15,7 +15,7 @@ architecture arch of tb_contador is
 
     component contador
         generic (
-            N : integer := 2
+            N : integer 
         );
         port (
             clk : in std_logic;

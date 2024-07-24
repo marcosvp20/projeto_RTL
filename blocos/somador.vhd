@@ -4,7 +4,7 @@ use ieee.numeric_std.all;
 
 entity somador is
     generic (
-        N : integer := 2
+        N : integer
     );
     port (
         A : in std_logic_vector(N-1 downto 0);

@@ -12,7 +12,7 @@ end tb_regishifter;
 architecture behavior of tb_regishifter is
     component registrador
         generic (
-            N : integer := 2
+            N : integer
         );
         port (
             clk : in std_logic;

@@ -27,7 +27,7 @@ architecture arch of top_level is
 
     component controlador is
         generic (
-            N : integer := 5  -- Ajustado para 5 bits
+            N : integer 
         );
         port(
             clock : in std_logic;

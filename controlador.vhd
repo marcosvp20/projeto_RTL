@@ -4,7 +4,7 @@ use ieee.numeric_std.all;
 
 entity controlador is
     generic (
-        N : integer range 2 to 5 := 3  -- Largura do registrador de estado (2 a 5 bits)
+        N : integer range 2 to 5   -- Largura do registrador de estado (2 a 5 bits)
     );
     port(
         clock  : in std_logic;
@@ -25,7 +25,7 @@ architecture arch of controlador is
 
     component datapath is
         generic (
-            N : integer := 2
+            N : integer 
         );
 
         port(

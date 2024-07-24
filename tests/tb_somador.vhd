@@ -12,7 +12,7 @@ architecture arch of tb_somador is
 
     component somador
         generic (
-            N : integer := 2
+            N : integer
         );
         port (
             A : in std_logic_vector(N-1 downto 0);

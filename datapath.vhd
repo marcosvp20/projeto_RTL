@@ -4,7 +4,7 @@ use ieee.numeric_std.all;
 
 entity datapath is
     generic (
-        N : integer := 2
+        N : integer
     );
     
     port(
@@ -40,7 +40,7 @@ architecture arch of datapath is
 
     component somador is
         generic (
-            N : integer := 2
+            N : integer
         );
         port (
             A : in std_logic_vector(N-1 downto 0);
@@ -51,7 +51,7 @@ architecture arch of datapath is
 
     component comparador is
         generic (
-            N : integer := 2
+            N : integer
         );
         port (
             X : in std_logic_vector(N-1 downto 0);
@@ -62,7 +62,7 @@ architecture arch of datapath is
 
     component registrador is
         generic (
-            N : integer := 2
+            N : integer
         );
         port (
             clk : in std_logic;
@@ -75,7 +75,7 @@ architecture arch of datapath is
 
     component regishifter is
         generic (
-            N : integer := 2
+            N : integer
         );
         port (
             clk : in std_logic;
@@ -89,7 +89,7 @@ architecture arch of datapath is
 
     component contador is
         generic (
-            N : integer := 2
+            N : integer
         );
         port (
             clk : in std_logic;

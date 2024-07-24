@@ -61,7 +61,7 @@ use ieee.numeric_std.all;  -- Necessário para operações aritméticas com std_
 
 entity contador is
     generic (
-        N : integer := 2  -- Número de bits (2 a 5)
+        N : integer 
     );
     port (
         clk : in std_logic;
