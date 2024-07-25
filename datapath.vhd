@@ -172,6 +172,6 @@ begin
     );
 
     -- Signal 
-    B_eq_1 <= B_out(I);
+	B_eq_1 <= B_out(to_integer(unsigned(I)));
 
 end architecture;

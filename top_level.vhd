@@ -21,9 +21,9 @@ end entity;
 architecture arch of top_level is
 
     signal CLK, Start, Reset, Done : std_logic;
-    signal A, B : std_logic_vector(N-1 downto 0); -- Valores de A (multiplicando) e B (multiplicador)
-    signal Result : std_logic_vector((N*2)-1 downto 0); -- Registrador do resultado
-    constant N : integer := 5; -- Parâmetro N (n° de bits)
+    signal A, B : std_logic_vector(4 downto 0);
+    signal Result : std_logic_vector(9 downto 0);
+    constant N : integer := 5;
 
     component controlador is
         generic (
@@ -40,7 +40,6 @@ architecture arch of top_level is
         );
     end component;
 
-    -- Função de decodificação para display de segmentos
     function decode_digit(digit : std_logic_vector(3 downto 0)) return std_logic_vector is
         variable segment : std_logic_vector(7 downto 0);
     begin
@@ -61,15 +60,13 @@ architecture arch of top_level is
     end function;
 
 begin
-    -- Ligações dos signals à placa
     LEDR(9) <= CLK;
     LEDR(8) <= Done;
-    A <= SW(N-1 downto 0);
-    B <= SW(N+4 downto 5);
+    A <= SW(4 downto 0);
+    B <= SW(9 downto 5);
     Reset <= KEY(0);
     Start <= KEY(1);
 
-    -- Intanciação do controlador
     controlador_inst : controlador
         generic map(
             N => N
@@ -84,7 +81,6 @@ begin
             Result => Result
         );
 
-    -- Definição do ciclo de clock
     clkdiv : process (MAX10_CLK1_50)
         variable count : integer range 0 to 29999999;
     begin
@@ -98,7 +94,6 @@ begin
         end if;
     end process;
 
-    -- Decodificação no display do resultado
     process(Result)
         variable digit1, digit2, digit3 : std_logic_vector(3 downto 0);
     begin

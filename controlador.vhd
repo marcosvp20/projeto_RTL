@@ -18,8 +18,7 @@ entity controlador is
 end controlador;
 
 architecture arch of controlador is
-
-    -- Definição dos estados
+    -- Definição dos estados usando um tipo enumerado
     type state_type is (I, S1, S2, S3, S4, S5, S6);
     signal state, next_state : state_type;
     signal i_clear, R_clear, i_count, i_lt_N, B_eq_1, R_ld, A_ld, B_ld, A_sh_l, A_clr, B_clr: std_logic;
@@ -38,7 +37,7 @@ architecture arch of controlador is
 
             Result_clr: in std_logic;
             Result_ld : in std_logic;
-            Result : out std_logic_vector(2*N-1 downto 0);
+            Result : out std_logic_vector(2*N-1 downto 0); -- Ajuste aqui
 
             B : in std_logic_vector(N-1 downto 0);
             B_clr : in std_logic;
@@ -53,7 +52,7 @@ architecture arch of controlador is
     end component;
 
 begin
-    -- Instanciação do caminho de dados
+
     datapath_inst : datapath
     generic map(
         N => N
@@ -75,7 +74,6 @@ begin
         A_ld => A_ld,
         A_sh_l => A_sh_l
     );
-
     -- Processo de transição de estados
     sync_proc : process(clock, reset)
     begin
@@ -86,7 +84,6 @@ begin
         end if;
     end process;
 
-    -- Processo da lógica combinacional dos estados
     comb_proc : process(state, start, i_lt_N, B_eq_1)
     begin
         i_clear <= '0';

@@ -1,5 +1,6 @@
 library ieee;
 use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
 entity regishifter is
     generic (
@@ -16,7 +17,7 @@ entity regishifter is
 end regishifter;
 
 architecture arch_regis of regishifter is
-    signal regis : std_logic_vector(N-1 downto 0); -- Valor registrado
+    signal regis : std_logic_vector(2*N-1 downto 0); -- Valor registrado com tamanho adequado
 begin
     process (clk, clear)
     begin
@@ -24,12 +25,12 @@ begin
             regis <= (others => '0'); -- Clear assíncrono
         elsif rising_edge(clk) then
             if load = '1' then
-                regis <= data_in;
+                regis(N-1 downto 0) <= data_in;
             elsif shift_left = '1' then
-                regis <= data_out(N-2 downto 0) & '0';  -- Realiza o shift left
+                regis <= regis(2*N-2 downto 0) & '0';  -- Realiza o shift left
             end if;
         end if;
     end process;
-    
-    data_out <= (others => '0') & regis; -- Saída precedida de N zeros;
+
+    data_out <= regis; -- Saída
 end arch_regis;

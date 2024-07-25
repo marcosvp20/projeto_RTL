@@ -9,7 +9,7 @@ entity somador is
     port (
         A : in std_logic_vector(2*N-1 downto 0);
         B : in std_logic_vector(2*N-1 downto 0);
-        SUM : out std_logic_vector(2*N-1 downto 0);
+        SUM : out std_logic_vector(2*N-1 downto 0)
     );
 end somador;
 
