@@ -11,7 +11,7 @@ entity regishifter is
         load : in std_logic;
         shift_left : in std_logic;
         data_in : in std_logic_vector(N-1 downto 0);
-        data_out : out std_logic_vector(N-1 downto 0)
+        data_out : out std_logic_vector(2*N-1 downto 0)
     );
 end regishifter;
 
@@ -31,5 +31,5 @@ begin
         end if;
     end process;
     
-    data_out <= regis; -- Saída
+    data_out <= (others => '0') & regis; -- Saída precedida de N zeros;
 end arch_regis;
