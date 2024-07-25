@@ -15,6 +15,7 @@ end comparador;
 
 architecture arch_comp of comparador is
 begin
+    -- Processo de comparação
     process (X, Y)
     begin
         if X < Y then

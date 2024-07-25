@@ -16,12 +16,12 @@ entity regishifter is
 end regishifter;
 
 architecture arch_regis of regishifter is
-    signal regis : std_logic_vector(N-1 downto 0);
+    signal regis : std_logic_vector(N-1 downto 0); -- Valor registrado
 begin
     process (clk, clear)
     begin
         if clear = '1' then
-            regis <= (others => '0'); 
+            regis <= (others => '0'); -- Clear assíncrono
         elsif rising_edge(clk) then
             if load = '1' then
                 regis <= data_in;
@@ -31,5 +31,5 @@ begin
         end if;
     end process;
     
-    data_out <= regis;
+    data_out <= regis; -- Saída
 end arch_regis;

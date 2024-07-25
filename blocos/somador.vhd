@@ -15,8 +15,9 @@ end somador;
 
 architecture arch_som of somador is
 begin
+    -- Processo de soma considerando o carry out
     process (A, B)
     begin
-        SUM <= std_logic_vector(unsigned('0' & A) + unsigned('0' & B));
+        SUM <= std_logic_vector(unsigned('0' & A) + unsigned('0' & B)); 
     end process;
 end arch_som;
